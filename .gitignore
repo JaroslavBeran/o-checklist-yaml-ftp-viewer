@@ -1,3 +1,15 @@
+# Idea project file
+*.iml
+.idea/
+
+# Eclipse project files
+.project
+.classpath
+.settings/
+
+# Java compilation target folder
+target
+
 # Compiled class file
 *.class
 
