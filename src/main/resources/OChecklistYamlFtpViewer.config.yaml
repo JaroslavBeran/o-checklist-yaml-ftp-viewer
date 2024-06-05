@@ -5,7 +5,7 @@
 ## Note: Be careful and respect the line indentation.
 
 version: "1"
-appWidth: 1300
+appWidth: 1270
 appHeight: 600
 
 ftp:
@@ -35,7 +35,7 @@ table:
     COMMENT: 190
     ID: 42
     SOLVED: 25
-    
+
 # Column placement from left to right in the table
 # Commenting the column_identification below makes the column invisible
   columnPlacement: [
