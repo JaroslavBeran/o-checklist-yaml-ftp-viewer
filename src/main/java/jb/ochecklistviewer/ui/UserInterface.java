@@ -503,13 +503,13 @@ public class UserInterface extends JPanel {
     }
 
     private void setTabColumns(AppConfig appConfig, TableComparatorChooser<RunnerData> tableComparatorChooser) {
-        List<UIConstants.TabColumn> columnOrder = appConfig.getTable().columnPlacement();
+        List<UIConstants.ColumnIdentification> columnOrder = appConfig.getTable().columnPlacement();
         TableColumnModel columnModel = table.getColumnModel();
 
-        EnumMap<UIConstants.TabColumn, Integer> columnWidths = appConfig.getTable().columnWidth();
-        EnumMap<UIConstants.TabColumn, AppConfig.Order> columnSorting = appConfig.getTable().columnSorting();
+        EnumMap<UIConstants.ColumnIdentification, Integer> columnWidths = appConfig.getTable().columnWidth();
+        EnumMap<UIConstants.ColumnIdentification, AppConfig.Order> columnSorting = appConfig.getTable().columnSorting();
 
-        Stream.of(UIConstants.TabColumn.values()).forEach(tableColumnEnum -> {
+        Stream.of(UIConstants.ColumnIdentification.values()).forEach(tableColumnEnum -> {
             int columnIdx = columnModel.getColumnIndex(tableColumnEnum.getLabel());
 
             if (columnSorting.containsKey(tableColumnEnum)) {
@@ -517,7 +517,7 @@ public class UserInterface extends JPanel {
             }
         });
 
-        Stream.of(UIConstants.TabColumn.values()).forEach(tableColumnEnum -> {
+        Stream.of(UIConstants.ColumnIdentification.values()).forEach(tableColumnEnum -> {
             int columnIdx = columnModel.getColumnIndex(tableColumnEnum.getLabel());
             TableColumn column = columnModel.getColumn(columnIdx);
 

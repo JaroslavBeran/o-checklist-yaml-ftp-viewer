@@ -35,8 +35,8 @@ public class AppConfig {
     }
 
 
-    public record Table(EnumMap<UIConstants.TabColumn, Integer> columnWidth,
-                        List<UIConstants.TabColumn> columnPlacement,
-                        EnumMap<UIConstants.TabColumn, Order> columnSorting) {
+    public record Table(EnumMap<UIConstants.ColumnIdentification, Integer> columnWidth,
+                        List<UIConstants.ColumnIdentification> columnPlacement,
+                        EnumMap<UIConstants.ColumnIdentification, Order> columnSorting) {
     }
 }
