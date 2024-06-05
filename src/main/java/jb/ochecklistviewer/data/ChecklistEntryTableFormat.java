@@ -15,18 +15,18 @@ public class ChecklistEntryTableFormat implements TableFormat<RunnerData> {
     @Override
     public String getColumnName(int column) {
         return switch (column) {
-            case 0 -> UIConstants.TabColumn.ID.getLabel();
-            case 1 -> UIConstants.TabColumn.NAME.getLabel();
-            case 2 -> UIConstants.TabColumn.ORG.getLabel();
-            case 3 -> UIConstants.TabColumn.CARD.getLabel();
-            case 4 -> UIConstants.TabColumn.START.getLabel();
-            case 5 -> UIConstants.TabColumn.CLASS.getLabel();
-            case 6 -> UIConstants.TabColumn.START_STATUS.getLabel();
-            case 7 -> UIConstants.TabColumn.NEW_CARD.getLabel();
-            case 8 -> UIConstants.TabColumn.NEW_CARD_CHANGED.getLabel();
-            case 9 -> UIConstants.TabColumn.DNS.getLabel();
-            case 10 -> UIConstants.TabColumn.LATE_START.getLabel();
-            case 11 -> UIConstants.TabColumn.COMMENT.getLabel();
+            case 0 -> UIConstants.ColumnIdentification.ID.getLabel();
+            case 1 -> UIConstants.ColumnIdentification.NAME.getLabel();
+            case 2 -> UIConstants.ColumnIdentification.ORG.getLabel();
+            case 3 -> UIConstants.ColumnIdentification.CARD.getLabel();
+            case 4 -> UIConstants.ColumnIdentification.START.getLabel();
+            case 5 -> UIConstants.ColumnIdentification.CLASS.getLabel();
+            case 6 -> UIConstants.ColumnIdentification.START_STATUS.getLabel();
+            case 7 -> UIConstants.ColumnIdentification.NEW_CARD.getLabel();
+            case 8 -> UIConstants.ColumnIdentification.NEW_CARD_CHANGED.getLabel();
+            case 9 -> UIConstants.ColumnIdentification.DNS.getLabel();
+            case 10 -> UIConstants.ColumnIdentification.LATE_START.getLabel();
+            case 11 -> UIConstants.ColumnIdentification.COMMENT.getLabel();
             default -> throw new IllegalStateException("Unexpected column: " + column);
         };
     }

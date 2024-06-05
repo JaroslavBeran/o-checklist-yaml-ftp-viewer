@@ -29,7 +29,7 @@ public final class UIConstants {
 
     @Getter
     @AllArgsConstructor
-    public enum TabColumn {
+    public enum ColumnIdentification {
         ID("ID"),
         NAME("Name"),
         ORG("Org"),
