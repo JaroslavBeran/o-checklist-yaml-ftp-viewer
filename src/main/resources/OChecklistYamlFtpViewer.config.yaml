@@ -1,0 +1,57 @@
+##
+## O-Checklist YAML FTP Viewer config file
+##
+
+version: "1"
+appWidth: 1270
+appHeight: 600
+
+ftp:
+  server: ""
+  port: 21
+  user: ""
+  pass: ""
+  file: ""
+  refresh: 10
+
+table:
+# There is a list of possible column_identifications:
+#    START, NAME, ORG, CARD, CLASS, START_STATUS, NEW_CARD, NEW_CARD_CHANGED, DNS, LATE_START, COMMENT, ID
+
+# Column width, format is    column_identifications: int
+  columnWidth: 
+    START: 65
+    NAME: 180
+    ORG: 50
+    CARD: 76
+    CLASS: 64
+    START_STATUS: 123
+    NEW_CARD: 92
+    NEW_CARD_CHANGED: 153
+    DNS: 76
+    LATE_START: 105
+    COMMENT: 190
+    ID: 42
+    
+# Column placement from left to right in the table
+# Commenting the column_identification below makes the column invisible
+  columnPlacement: [
+    START,
+    NAME,
+    ORG,
+    CARD,
+    CLASS,
+    START_STATUS,
+    NEW_CARD,
+    NEW_CARD_CHANGED,
+    DNS,
+    LATE_START,
+    COMMENT,
+    ID
+  ]
+  
+# Multi-column data sorting format is    column_identification: ASC|DESC
+  columnSorting: 
+    START: ASC
+    LATE_START: DESC
+
