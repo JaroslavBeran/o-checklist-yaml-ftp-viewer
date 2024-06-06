@@ -6,7 +6,7 @@ import jb.ochecklistviewer.data.StatisticUtils;
 import jb.ochecklistviewer.ui.UIReportListener;
 import jb.ochecklistviewer.ui.UIStatusListener;
 import jb.ochecklistviewer.yaml.YamlReaderWriter;
-import jb.ochecklistviewer.yaml.YamlReaderWritterException;
+import jb.ochecklistviewer.yaml.YamlReaderWriterException;
 import lombok.RequiredArgsConstructor;
 
 import java.io.ByteArrayInputStream;
@@ -150,7 +150,7 @@ public class FtpManagerImpl implements FtpManager {
                 final ChecklistReport checklistReport = YamlReaderWriter.readReport(bais);
                 var stat = StatisticUtils.calculate(checklistReport);
                 uiReportListener.update(checklistReport.getRunners(), stat);
-            } catch (YamlReaderWritterException | IOException e) {
+            } catch (YamlReaderWriterException | IOException e) {
                 uiStatusListener.update("FTP cannot parse YAML file: " + e.getMessage());
             }
         }

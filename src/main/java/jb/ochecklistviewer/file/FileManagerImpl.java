@@ -5,7 +5,7 @@ import jb.ochecklistviewer.data.StatisticUtils;
 import jb.ochecklistviewer.ui.UIReportListener;
 import jb.ochecklistviewer.ui.UIStatusListener;
 import jb.ochecklistviewer.yaml.YamlReaderWriter;
-import jb.ochecklistviewer.yaml.YamlReaderWritterException;
+import jb.ochecklistviewer.yaml.YamlReaderWriterException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +30,7 @@ public class FileManagerImpl implements FileManager {
             var statisctics = StatisticUtils.calculate(checklistReport);
             UIReportListener.update(checklistReport.getRunners(), statisctics);
             UIStatusListener.update("File '%s' was successfully loaded".formatted(file.getName()));
-        } catch (YamlReaderWritterException e) {
+        } catch (YamlReaderWriterException e) {
             UIStatusListener.update("File '%s' was not loaded: %s".formatted(file.getName(), e.getMessage()));
         }
     }
