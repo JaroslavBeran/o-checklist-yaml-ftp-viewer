@@ -192,6 +192,7 @@ public class Runner {
      * CSV import), or, null (eg, free start `time).
      */
     @JsonProperty("StartTime")
+    @JsonDeserialize(using = StartTimeDeserializer.class)
     @JsonSerialize(using = OffsetDateTimeSerializer.class)
     OffsetDateTime startTime;
 
