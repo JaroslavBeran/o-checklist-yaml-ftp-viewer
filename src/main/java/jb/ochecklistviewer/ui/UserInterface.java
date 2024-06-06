@@ -11,7 +11,10 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import jb.ochecklistviewer.config.AppConfig;
 import jb.ochecklistviewer.config.FtpConfig;
-import jb.ochecklistviewer.data.*;
+import jb.ochecklistviewer.data.ChecklistEntryTableFormat;
+import jb.ochecklistviewer.data.RunnerData;
+import jb.ochecklistviewer.data.RunnerFilterator;
+import jb.ochecklistviewer.data.Statistics;
 import jb.ochecklistviewer.file.FileManager;
 import jb.ochecklistviewer.ftp.FtpManager;
 import lombok.AllArgsConstructor;
@@ -89,31 +92,31 @@ public class UserInterface extends JPanel {
 
         /////////////
         // Statistics
-        JPanel statisticsPanel = new JPanel(new MigLayout("insets -1", "[]0[30]10[]0[30]10[]0[30]", "[]0[]"));
+        JPanel statisticsPanel = new JPanel(new MigLayout("insets -1", "[]3[30]10[]3[30]10[]3[30]", "[]0[]"));
         statisticsPanel.setBorder(BorderFactory.createTitledBorder("Statistics"));
 
         statisticsPanel.add(new JLabel("YAML itms:"), "");
-        JLabel yamlItems = new JLabel("0", SwingConstants.RIGHT);
+        JLabel yamlItems = new JLabel("0");
         statisticsPanel.add(yamlItems, "w 100%");
 
         statisticsPanel.add(new JLabel("Cards:"), "");
-        JLabel cardChanges = new JLabel("0", SwingConstants.RIGHT);
+        JLabel cardChanges = new JLabel("0");
         statisticsPanel.add(cardChanges, "w 100%");
 
         statisticsPanel.add(new JLabel("Comments:"), "");
-        JLabel comments = new JLabel("0", SwingConstants.RIGHT);
+        JLabel comments = new JLabel("0");
         statisticsPanel.add(comments, "w 100%, wrap");
 
         statisticsPanel.add(new JLabel("Start OKs:"), "");
-        JLabel starts = new JLabel("0", SwingConstants.RIGHT);
+        JLabel starts = new JLabel("0");
         statisticsPanel.add(starts, "w 100%");
 
         statisticsPanel.add(new JLabel("DNS:"), "");
-        JLabel dnses = new JLabel("0", SwingConstants.RIGHT);
+        JLabel dnses = new JLabel("0");
         statisticsPanel.add(dnses, "w 100%");
 
         statisticsPanel.add(new JLabel("Late starts:"), "");
-        JLabel lateStarts = new JLabel("0", SwingConstants.RIGHT);
+        JLabel lateStarts = new JLabel("0");
         statisticsPanel.add(lateStarts, "w 100%");
 
         @AllArgsConstructor
@@ -417,6 +420,22 @@ public class UserInterface extends JPanel {
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         /////////////
+        // Table info panel - number of rows, number of selected rows
+        JPanel tableInfo = new JPanel(new MigLayout("", "[]0[30]10[]0[30]"));
+        tableInfo.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        tableInfo.add(new JLabel("Total rows: "));
+        JLabel numberOfTableRows = new JLabel("0");
+        tableInfo.add(numberOfTableRows, "w 100%");
+        tableInfo.add(new JLabel("Selected rows: "));
+        JLabel numberOfSelectedRows = new JLabel("0");
+        tableInfo.add(numberOfSelectedRows, "w 100%");
+        table.getSelectionModel().addListSelectionListener(e ->
+                numberOfSelectedRows.setText(String.valueOf(table.getSelectedRows().length)));
+        table.getModel().addTableModelListener(e ->
+                numberOfTableRows.setText(String.valueOf(table.getRowCount())));
+
+
+        /////////////
         // Top panel - group FTP, File, Filter and Statistic panels into one
         // panel with auto-wrap layout possibility
         JPanel topPanel = new JPanel(new MigLayout("insets 0, h :pref:, wrap 4", "", ""));
@@ -430,6 +449,7 @@ public class UserInterface extends JPanel {
         // Bottom panel
         JPanel bottomPanel = new JPanel(new MigLayout("insets 0"));
         bottomPanel.add(statusPanel, "growx, pushx");
+        bottomPanel.add(tableInfo, "");
         bottomPanel.add(btnInfo, "");
 
 
