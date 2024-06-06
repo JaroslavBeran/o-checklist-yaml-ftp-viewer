@@ -17,7 +17,7 @@ public class YamlReaderWriter {
         try (FileInputStream is = new FileInputStream(file)) {
             return mapper.readValue(is, ChecklistReport.class);
         } catch (Exception e) {
-            throw new YamlReaderWritterException("Cannot parse YAML file " + file.getName(), e);
+            throw new YamlReaderWriterException("Cannot parse YAML file " + file.getName(), e);
         }
     }
 
@@ -32,7 +32,7 @@ public class YamlReaderWriter {
         try (FileOutputStream fos = new FileOutputStream(toFile)) {
             mapper.writeValue(fos, report);
         } catch (IOException e) {
-            throw new YamlReaderWritterException("Cannot generate or write YAML: " + toFile.getName(), e);
+            throw new YamlReaderWriterException("Cannot generate or write YAML: " + toFile.getName(), e);
         }
     }
 
@@ -44,7 +44,7 @@ public class YamlReaderWriter {
         try {
             return mapper.readValue(is, clazz);
         } catch (Exception e) {
-            throw new YamlReaderWritterException("Cannot parse input stream", e);
+            throw new YamlReaderWriterException("Cannot parse input stream", e);
         }
     }
 
