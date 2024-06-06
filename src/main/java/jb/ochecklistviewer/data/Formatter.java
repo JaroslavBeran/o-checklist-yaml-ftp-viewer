@@ -2,6 +2,7 @@ package jb.ochecklistviewer.data;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
@@ -10,22 +11,27 @@ import static java.time.temporal.ChronoField.*;
 
 public final class Formatter {
 
-    static ZoneId zoneEU = ZoneId.of("Europe/Prague");
+    public static final ZoneId SYSTEM_ZONE_ID = ZoneId.systemDefault();
+    public static final ZoneOffset SYSTEM_ZONE_OFFSET = OffsetDateTime.now(SYSTEM_ZONE_ID).getOffset();
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
-    static DateTimeFormatter hhmm = new DateTimeFormatterBuilder().appendValue(HOUR_OF_DAY, 2).appendLiteral(':')
+    public static DateTimeFormatter hhmm = new DateTimeFormatterBuilder()
+            .appendValue(HOUR_OF_DAY, 2).appendLiteral(':')
             .appendValue(MINUTE_OF_HOUR, 2).toFormatter();
 
-    static DateTimeFormatter hhmmss = new DateTimeFormatterBuilder().appendValue(HOUR_OF_DAY, 2).appendLiteral(':')
-            .appendValue(MINUTE_OF_HOUR, 2).appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).toFormatter();
+    public static DateTimeFormatter hhmmss = new DateTimeFormatterBuilder()
+            .appendValue(HOUR_OF_DAY, 2).appendLiteral(':')
+            .appendValue(MINUTE_OF_HOUR, 2).appendLiteral(':')
+            .appendValue(SECOND_OF_MINUTE, 2).toFormatter();
 
 
     private static String formatDateTimeHHMM(OffsetDateTime offsetDateTime) {
-        return offsetDateTime != null ? offsetDateTime.atZoneSameInstant(zoneEU).toLocalDateTime().format(hhmm) : "";
+        return offsetDateTime != null ? offsetDateTime.atZoneSameInstant(SYSTEM_ZONE_ID).toLocalDateTime().format(hhmm) : "";
     }
 
 
     private static String formatDateTimeHHMMSS(OffsetDateTime offsetDateTime) {
-        return offsetDateTime != null ? offsetDateTime.atZoneSameInstant(zoneEU).toLocalDateTime().format(hhmmss) : "";
+        return offsetDateTime != null ? offsetDateTime.atZoneSameInstant(SYSTEM_ZONE_ID).toLocalDateTime().format(hhmmss) : "";
     }
 
 
@@ -52,7 +58,7 @@ public final class Formatter {
 
 
     public static String formatStartTime(RunnerData runnerData) {
-        return formatDateTimeHHMM(runnerData.getRunner().getStartTime());
+        return formatDateTimeHHMMSS(runnerData.getRunner().getStartTime());
     }
 
 
@@ -91,11 +97,12 @@ public final class Formatter {
 
 
     public static String formatComment(RunnerData runnerData) {
-        return runnerData.getRunner().getComment() != null ? runnerData.getRunner().getComment() : "";
+        String comment = runnerData.getRunner().getComment();
+        return comment != null ? comment : "";
     }
 
 
     public static String formatOffsetDateTime(OffsetDateTime offsetDateTime) {
-        return DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(offsetDateTime);
+        return DATE_TIME_FORMATTER.format(offsetDateTime);
     }
 }
