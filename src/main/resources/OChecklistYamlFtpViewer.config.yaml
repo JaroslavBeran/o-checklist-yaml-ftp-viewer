@@ -3,7 +3,7 @@
 ##
 
 version: "1"
-appWidth: 1270
+appWidth: 1300
 appHeight: 600
 
 ftp:
@@ -16,7 +16,7 @@ ftp:
 
 table:
 # There is a list of possible column_identifications:
-#    START, NAME, ORG, CARD, CLASS, START_STATUS, NEW_CARD, NEW_CARD_CHANGED, DNS, LATE_START, COMMENT, ID
+#    START, NAME, ORG, CARD, CLASS, START_STATUS, NEW_CARD, NEW_CARD_CHANGED, DNS, LATE_START, COMMENT, ID, SOLVED
 
 # Column width, format is    column_identifications: int
   columnWidth: 
@@ -32,6 +32,7 @@ table:
     LATE_START: 105
     COMMENT: 190
     ID: 42
+    SOLVED: 25
     
 # Column placement from left to right in the table
 # Commenting the column_identification below makes the column invisible
@@ -39,9 +40,10 @@ table:
     START,
     NAME,
     ORG,
-    CARD,
     CLASS,
     START_STATUS,
+    CARD,
+    SOLVED,
     NEW_CARD,
     NEW_CARD_CHANGED,
     DNS,

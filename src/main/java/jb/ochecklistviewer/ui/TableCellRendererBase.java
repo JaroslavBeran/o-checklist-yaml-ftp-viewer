@@ -12,8 +12,7 @@ import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
-import static jb.ochecklistviewer.ui.UIConstants.TABLE_ROW_ZEBRA_DARK;
-import static jb.ochecklistviewer.ui.UIConstants.TABLE_ROW_ZEBRA_LIGHT;
+import static jb.ochecklistviewer.ui.UIConstants.*;
 
 
 @Getter
@@ -49,7 +48,7 @@ public class TableCellRendererBase extends DefaultTableCellRenderer {
         }
 
         if (isSelected) {
-            cellComponent.setBackground(UIConstants.TABLE_ROW_SELECTION_BACKGROUND_COLOR);
+            cellComponent.setBackground(TABLE_ROW_SELECTION_BACKGROUND_COLOR);
         } else {
             if (row % 2 == 0) {
                 cellComponent.setBackground(TABLE_ROW_ZEBRA_DARK);

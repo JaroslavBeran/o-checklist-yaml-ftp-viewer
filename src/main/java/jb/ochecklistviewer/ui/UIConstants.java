@@ -42,6 +42,7 @@ public final class UIConstants {
         DNS("DNS"),
         LATE_START("Late Start"),
         COMMENT("Comment"),
+        SOLVED("(X)")
         ;
 
 
