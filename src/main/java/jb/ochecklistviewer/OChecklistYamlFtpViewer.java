@@ -1,13 +1,12 @@
 package jb.ochecklistviewer;
 
 import jb.ochecklistviewer.config.AppConfig;
-import jb.ochecklistviewer.config.AppConfigException;
+import jb.ochecklistviewer.config.CfgReader;
 import jb.ochecklistviewer.file.FileManager;
 import jb.ochecklistviewer.file.FileManagerImpl;
 import jb.ochecklistviewer.ftp.FtpManager;
 import jb.ochecklistviewer.ftp.FtpManagerImpl;
 import jb.ochecklistviewer.ui.UserInterface;
-import jb.ochecklistviewer.yaml.YamlReaderWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +15,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class OChecklistYamlFtpViewer {
@@ -63,30 +56,8 @@ public class OChecklistYamlFtpViewer {
     }
 
 
-    private static void readConfig(String userCfgFile) {
-        if (userCfgFile != null) {
-            Path userConfigFilePath = Paths.get(userCfgFile);
-            try (FileInputStream userCfgFileInputStream = new FileInputStream(userConfigFilePath.toFile())) {
-                appConfig = YamlReaderWriter.read(userCfgFileInputStream, AppConfig.class);
-                log.info("Configuration read from user config file: {}", userCfgFile);
-                return;
-            } catch (InvalidPathException | IOException ex) {
-                log.warn("Cannot read user config file: {} ... reading default from resource.", userCfgFile);
-            }
-        }
-
-        try (InputStream is = OChecklistYamlFtpViewer.class
-                .getResourceAsStream("/OChecklistYamlFtpViewer.config.yaml")) {
-            log.info("... reading configuration from default resource");
-            appConfig = YamlReaderWriter.read(is, AppConfig.class);
-        } catch (IOException ex) {
-            throw new AppConfigException("Cannot read application configuration from resource.", ex);
-        }
-    }
-
-
     public static void main(String[] args) {
-        readConfig(args.length == 1 ? args[0] : null);
+        appConfig = CfgReader.readFile(args.length == 1 ? args[0] : null);
 
         SwingUtilities.invokeLater(OChecklistYamlFtpViewer::createAndShowGUI);
     }
