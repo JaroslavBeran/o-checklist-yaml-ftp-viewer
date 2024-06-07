@@ -33,4 +33,9 @@ public class RunnerData {
     @HashCodeExclude
     @JsonIgnore
     boolean disappearedFromYaml;
+
+    @EqualsAndHashCode.Exclude
+    @HashCodeExclude
+    @JsonIgnore
+    boolean solved;
 }

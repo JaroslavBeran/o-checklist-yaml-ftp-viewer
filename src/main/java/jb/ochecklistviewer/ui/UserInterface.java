@@ -11,7 +11,6 @@ import ca.odell.glazedlists.swing.TableComparatorChooser;
 import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import jb.ochecklistviewer.config.AppConfig;
 import jb.ochecklistviewer.config.FtpConfig;
-import jb.ochecklistviewer.data.ChecklistEntryTableFormat;
 import jb.ochecklistviewer.data.RunnerData;
 import jb.ochecklistviewer.data.RunnerFilterator;
 import jb.ochecklistviewer.data.Statistics;
@@ -398,11 +397,17 @@ public class UserInterface extends JPanel {
 
         var tableCellRenderer = new TableCellRenderer(tableModel);
         var statusCellRenderer = new StartStatusCellRenderer(tableModel);
+        var solvedCellRenderer = new SolvedCellRenderer();
+        var solvedCellEditor = new SolvedCellEditor();
         for (int columnIdx = 0; columnIdx < tableModel.getColumnCount(); columnIdx++) {
-            if (columnIdx == 6) {
-                table.getColumnModel().getColumn(columnIdx).setCellRenderer(statusCellRenderer);
-            } else {
-                table.getColumnModel().getColumn(columnIdx).setCellRenderer(tableCellRenderer);
+            final TableColumn tableColumn = table.getColumnModel().getColumn(columnIdx);
+            switch (columnIdx) {
+                case 6 -> tableColumn.setCellRenderer(statusCellRenderer);
+                case 12 -> {
+                    tableColumn.setCellRenderer(solvedCellRenderer);
+                    tableColumn.setCellEditor(solvedCellEditor);
+                }
+                default -> tableColumn.setCellRenderer(tableCellRenderer);
             }
         }
 

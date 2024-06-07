@@ -1,14 +1,19 @@
-package jb.ochecklistviewer.data;
+package jb.ochecklistviewer.ui;
 
-import ca.odell.glazedlists.gui.TableFormat;
-import jb.ochecklistviewer.ui.UIConstants;
+import ca.odell.glazedlists.gui.AdvancedTableFormat;
+import ca.odell.glazedlists.gui.WritableTableFormat;
+import ca.odell.glazedlists.impl.sort.ComparableComparator;
+import jb.ochecklistviewer.data.Formatter;
+import jb.ochecklistviewer.data.RunnerData;
+
+import java.util.Comparator;
 
 
-public class ChecklistEntryTableFormat implements TableFormat<RunnerData> {
+public class ChecklistEntryTableFormat implements AdvancedTableFormat<RunnerData>, WritableTableFormat<RunnerData> {
 
     @Override
     public int getColumnCount() {
-        return 12;
+        return 13;
     }
 
 
@@ -27,6 +32,7 @@ public class ChecklistEntryTableFormat implements TableFormat<RunnerData> {
             case 9 -> UIConstants.ColumnIdentification.DNS.getLabel();
             case 10 -> UIConstants.ColumnIdentification.LATE_START.getLabel();
             case 11 -> UIConstants.ColumnIdentification.COMMENT.getLabel();
+            case 12 -> UIConstants.ColumnIdentification.SOLVED.getLabel();
             default -> throw new IllegalStateException("Unexpected column: " + column);
         };
     }
@@ -47,7 +53,34 @@ public class ChecklistEntryTableFormat implements TableFormat<RunnerData> {
             case 9 -> Formatter.formatDnsChanged(runnerData);
             case 10 -> Formatter.formatLateStart(runnerData);
             case 11 -> Formatter.formatComment(runnerData);
+            case 12 -> runnerData.isSolved();
             default -> throw new IllegalStateException("Unexpected column: " + column);
         };
+    }
+
+    @Override
+    public Class<?> getColumnClass(int column) {
+        return switch (column) {
+            case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 -> String.class;
+            case 12 -> Boolean.class;
+            default -> throw new IllegalStateException("Unexpected column: " + column);
+        };
+    }
+
+
+    @Override
+    public Comparator<?> getColumnComparator(int column) {
+        return new ComparableComparator();
+    }
+
+    @Override
+    public boolean isEditable(RunnerData baseObject, int column) {
+        return column == 12;
+    }
+
+    @Override
+    public RunnerData setColumnValue(RunnerData baseObject, Object editedValue, int column) {
+        baseObject.setSolved((boolean) editedValue);
+        return baseObject;
     }
 }
