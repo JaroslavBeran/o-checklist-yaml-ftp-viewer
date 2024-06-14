@@ -351,6 +351,8 @@ public class UserInterface extends JPanel {
         filterTextField.registerKeyboardAction(e -> filterTextField.setText(""),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), WHEN_FOCUSED);
         filterPanel.add(filterTextField, "w 80::, growx");
+        filterTextField.setText(appConfig.getFilter().token());
+        btnNegExpr.setSelected(appConfig.getFilter().negate());
 
         /////////////
         // Table

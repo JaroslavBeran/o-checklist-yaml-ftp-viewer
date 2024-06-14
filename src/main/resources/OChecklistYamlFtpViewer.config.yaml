@@ -57,3 +57,8 @@ table:
     START: ASC
     LATE_START: DESC
 
+
+# Default filter where negate: true
+filter:
+  negate: false    # true = negate button is pressed
+  token: ""        # text is filled in the "text to filter" text field
