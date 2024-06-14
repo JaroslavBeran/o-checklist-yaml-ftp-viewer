@@ -19,6 +19,8 @@ import jb.ochecklistviewer.ftp.FtpManager;
 import lombok.AllArgsConstructor;
 import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -55,6 +57,7 @@ public class UserInterface extends JPanel {
 
     @Serial
     private static final long serialVersionUID = 8778656409466134442L;
+    private static final Logger log = LoggerFactory.getLogger(UserInterface.class);
     private final JTable table;
     private final EventList<RunnerData> runners = new BasicEventList<>();
 
@@ -288,10 +291,16 @@ public class UserInterface extends JPanel {
             int result = JOptionPane.showConfirmDialog(null, ftpSettingPanel, "FTP Settings",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
-                FtpConfig ftpConfig = new FtpConfig(ftpServerUrl.getText(), Integer.parseInt(ftpServerPort.getText()),
+                if (FtpConfig.isValid(ftpServerUrl.getText(), Integer.parseInt(ftpServerPort.getText()),
                         ftpUser.getText(), ftpPass.getText(), ftpServerFile.getText(),
-                        Integer.parseInt(ftpFileRefresh.getText()));
-                appConfig.setFtpConfig(ftpConfig);
+                        Integer.parseInt(ftpFileRefresh.getText()))) {
+                    FtpConfig ftpConfig = new FtpConfig(ftpServerUrl.getText(), Integer.parseInt(ftpServerPort.getText()),
+                            ftpUser.getText(), ftpPass.getText(), ftpServerFile.getText(),
+                            Integer.parseInt(ftpFileRefresh.getText()));
+                    appConfig.setFtpConfig(ftpConfig);
+                } else {
+                    log.warn("Wrong FTP parameters!");
+                }
             }
         });
 
