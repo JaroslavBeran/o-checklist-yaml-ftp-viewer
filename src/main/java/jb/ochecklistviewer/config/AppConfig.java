@@ -23,6 +23,8 @@ public class AppConfig {
     FtpConfig ftpConfig;
     @JsonProperty("table")
     Table table;
+    @JsonProperty("filter")
+    Filter filter;
 
     @AllArgsConstructor
     @Getter
@@ -39,4 +41,6 @@ public class AppConfig {
                         List<UIConstants.ColumnIdentification> columnPlacement,
                         EnumMap<UIConstants.ColumnIdentification, Order> columnSorting) {
     }
+
+    public record Filter(boolean negate, String token) {}
 }
