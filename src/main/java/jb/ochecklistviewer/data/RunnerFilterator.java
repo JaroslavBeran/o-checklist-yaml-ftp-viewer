@@ -22,6 +22,7 @@ public class RunnerFilterator implements TextFilterator<RunnerData> {
         baseList.add(Formatter.formatNewCardChanged(runnerData));
         baseList.add(Formatter.formatDnsChanged(runnerData));
         baseList.add(Formatter.formatLateStart(runnerData));
+        baseList.add(StringUtils.stripAccents(Formatter.formatComment(runnerData)));
         baseList.add(Formatter.formatComment(runnerData));
     }
 }
