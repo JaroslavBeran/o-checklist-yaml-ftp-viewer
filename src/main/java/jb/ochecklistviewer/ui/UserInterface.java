@@ -8,7 +8,6 @@ import ca.odell.glazedlists.matchers.MatcherEditor;
 import ca.odell.glazedlists.swing.AdvancedTableModel;
 import ca.odell.glazedlists.swing.GlazedListsSwing;
 import ca.odell.glazedlists.swing.TableComparatorChooser;
-import ca.odell.glazedlists.swing.TextComponentMatcherEditor;
 import jb.ochecklistviewer.config.AppConfig;
 import jb.ochecklistviewer.config.FtpConfig;
 import jb.ochecklistviewer.data.RunnerData;
@@ -341,9 +340,12 @@ public class UserInterface extends JPanel {
 
         /////////////
         // Filter panel
-        JPanel filterPanel = new JPanel(new MigLayout("insets 1, fillx", "[][grow]"));
+        JPanel filterPanel = new JPanel(new MigLayout("insets 1, fillx", "[][]0[grow]"));
         filterPanel.setBorder(BorderFactory.createTitledBorder("Filter"));
         filterPanel.add(new JLabel("Text to filter:"));
+        JToggleButton btnNegExpr = new JToggleButton("!");
+        btnNegExpr.setToolTipText("Negate the search");
+        filterPanel.add(btnNegExpr, "");
 
         JTextField filterTextField = new JTextField();
         filterTextField.registerKeyboardAction(e -> filterTextField.setText(""),
@@ -355,7 +357,7 @@ public class UserInterface extends JPanel {
         SortedList<RunnerData> sortedEntries = new SortedList<>(runners);
 
         RunnerFilterator runnerFilterator = new RunnerFilterator();
-        MatcherEditor<RunnerData> textMatcherEditor = new TextComponentMatcherEditor<>(filterTextField,
+        MatcherEditor<RunnerData> textMatcherEditor = new NegableTextMatchEditor<>(btnNegExpr, filterTextField,
                 runnerFilterator);
         FilterList<RunnerData> textFilteredIssues = new FilterList<>(sortedEntries, textMatcherEditor);
 
