@@ -42,5 +42,10 @@ public class AppConfig {
                         EnumMap<UIConstants.ColumnIdentification, Order> columnSorting) {
     }
 
-    public record Filter(boolean negate, String token) {}
+    public record Filter(boolean negate, String token) {
+        public Filter(boolean negate, String token) {
+            this.negate = negate;
+            this.token = token != null ? token : "";
+        }
+    }
 }
