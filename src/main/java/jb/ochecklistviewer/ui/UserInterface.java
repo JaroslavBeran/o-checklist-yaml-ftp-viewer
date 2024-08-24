@@ -71,7 +71,7 @@ public class UserInterface extends JPanel {
         JLabel statusBarLabel = new JLabel("FTP connection ", SwingConstants.LEFT);
         statusPanel.add(statusBarLabel, "");
 
-        URL iconResource = UserInterface.class.getResource("/jb/ochecklistviewer/ui/info.png");
+        URL iconResource = UserInterface.class.getResource("/jb/ochecklistviewer/ui/info-16x16.png");
         Image image = Toolkit.getDefaultToolkit().getImage(iconResource);
         ImageIcon icon = new ImageIcon(image);
         JButton btnInfo = new JButton(icon);
@@ -285,8 +285,14 @@ public class UserInterface extends JPanel {
                 .formatted(FtpConfig.REFRESH_MIN, FtpConfig.REFRESH_MAX));
         ftpSettingPanel.add(ftpFileRefresh, "growx, wrap");
 
-        JButton ftpSettingsBtn = new JButton("Settings");
-        ftpSettingsBtn.addActionListener(e -> {
+
+        URL iconResourceBtnFtpSettings = UserInterface.class.getResource("/jb/ochecklistviewer/ui/settings-16x16.png");
+        Image imageBtnFtpSettings = Toolkit.getDefaultToolkit().getImage(iconResourceBtnFtpSettings);
+        ImageIcon iconBtnFtpSettings = new ImageIcon(imageBtnFtpSettings);
+        JButton btnFtpSettings = new JButton(iconBtnFtpSettings);
+        btnFtpSettings.setToolTipText("FTP Settings");
+
+        btnFtpSettings.addActionListener(e -> {
             int result = JOptionPane.showConfirmDialog(null, ftpSettingPanel, "FTP Settings",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
@@ -303,7 +309,15 @@ public class UserInterface extends JPanel {
             }
         });
 
+        URL iconResourceBtnClearList = UserInterface.class.getResource("/jb/ochecklistviewer/ui/clear-16x16.png");
+        Image imageBtnClearList = Toolkit.getDefaultToolkit().getImage(iconResourceBtnClearList);
+        ImageIcon iconBtnClearList = new ImageIcon(imageBtnClearList);
+        JButton btnClearList = new JButton(iconBtnClearList);
+        btnClearList.setToolTipText("Clear runner table");
+        btnClearList.addActionListener(e -> runners.clear());
+
         JToggleButton btnConnect = new JToggleButton("Connect");
+        btnConnect.setToolTipText("Connect to FTP server");
         ActionListener toggleBtnActionListener = e -> {
             if (!appConfig.getFtpConfig().isValid()) {
                 JOptionPane.showMessageDialog(null,
@@ -316,26 +330,30 @@ public class UserInterface extends JPanel {
 
             if (btnConnect.getModel().isSelected()) {
                 btnConnect.setText("Disconnect");
-                ftpSettingsBtn.setEnabled(false);
+                btnConnect.setToolTipText("Disconnect from FTP server");
+                btnFtpSettings.setEnabled(false);
+                btnClearList.setEnabled(false);
                 filePanel.setEnabled(false);
                 filePath.setEnabled(false);
                 dropHandler.setEnabled(false);
-                runners.clear();
                 ftpManager.startPolling(appConfig.getFtpConfig(), uiReportListener, uiStatusListener);
             } else {
                 filePanel.setEnabled(true);
                 filePath.setEnabled(true);
                 dropHandler.setEnabled(true);
-                ftpSettingsBtn.setEnabled(true);
+                btnFtpSettings.setEnabled(true);
+                btnClearList.setEnabled(true);
                 ftpManager.stopPolling();
                 btnConnect.setText("Connect");
+                btnConnect.setToolTipText("Connect to FTP server");
             }
         };
         btnConnect.addActionListener(toggleBtnActionListener);
 
         JPanel ftpPanel = new JPanel(new MigLayout("insets 1"));
         ftpPanel.setBorder(BorderFactory.createTitledBorder("FTP"));
-        ftpPanel.add(ftpSettingsBtn, "width pref!");
+        ftpPanel.add(btnFtpSettings, "width pref!");
+        ftpPanel.add(btnClearList, "width pref!");
         ftpPanel.add(btnConnect, "width 100!");
 
         /////////////
