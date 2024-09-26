@@ -23,6 +23,9 @@ public class ChecklistReport {
     @JsonSerialize(using = OffsetDateTimeSerializer.class)
     OffsetDateTime created; // Report creation timestamp (ISO 8601 date and time)
 
+    @JsonProperty("Event")
+    String event;
+
     @JsonProperty("Data")
     List<RunnerData> runners;
 }
