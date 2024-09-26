@@ -1,6 +1,7 @@
 package jb.ochecklistviewer.yaml;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
@@ -17,21 +18,14 @@ class YamlMapper {
 
 
     public YamlMapper() {
-        var yamlFactory = new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER) // removes
-                // marker
-                // characters
-                // ---
+        var yamlFactory = new YAMLFactory()
+                .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER) // removes marker characters ---
                 .disable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-                // .disable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
-                // //avoid numbers being quote
-                .enable(YAMLGenerator.Feature.INDENT_ARRAYS_WITH_INDICATOR); // list
-        // array
-        // elements
-        // by
-        // prefixing
-        // hifen
+                // .disable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS) //avoid numbers being quote
+                .enable(YAMLGenerator.Feature.INDENT_ARRAYS_WITH_INDICATOR); // list array elements by prefixing hifen
 
         mapper = new ObjectMapper(yamlFactory);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.findAndRegisterModules();
         mapper.registerModule(new JavaTimeModule());
         mapper.enable(JsonParser.Feature.ALLOW_COMMENTS, JsonParser.Feature.ALLOW_YAML_COMMENTS);
