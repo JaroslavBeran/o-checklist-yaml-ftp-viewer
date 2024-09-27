@@ -16,6 +16,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<scm>
+		<developerConnection>scm:git:https://github.com/JaroslavBeran/o-checklist-yaml-ftp-viewer.git</developerConnection>
+	</scm>
 
 	<build>
 		<resources>
