@@ -2,7 +2,7 @@
 ## O-Checklist-YAML-FTP-Viewer aplikace
 Je JAVA aplikace s podporou:
 - online zobrazení YAML souboru zasílaného O-Checklist mobilní Andriod aplikací na FTP server, nebo 
-- manuální načtení konkrétního YAML soubor.
+- ruční jednorázové načtení konkrétního YAML soubor.
 
 ![](doc/o-checklist-yaml-ftp-viewer.png)
 
@@ -32,18 +32,19 @@ Další vlastnosti aplikace:
   - výchozí filtrování.
 
 ### Spuštění aplikace
-#### Důvěřuji autorovi a chci si stáhnout předpřipravenou aplikaci a nechci řešit sestavování java aplikace
-Na Google Drive najdeš [složku](https://drive.google.com/drive/folders/1_DBf44yC20Ru7zz8TmXVDBSOE8lbcXJp?usp=drive_link), v které je připraven archiv (.zip, .tgz, .jar) se vším co aplikace pro spuštění potřebuje.
+#### Důvěřuji autorovi a chci si stáhnout předpřipravenou aplikaci a nechci řešit sestavování JAVA aplikace
+Na Google Drive najdeš [složku](https://drive.google.com/drive/folders/1_DBf44yC20Ru7zz8TmXVDBSOE8lbcXJp?usp=drive_link), v které je připraven archiv (.zip, .tgz, .jar) se vším co aplikace pro spuštění potřebuje, není potřeba nic dalšího instalovat.
 - Windows .zip archiv: _o-checklist-yaml-ftp-viewer-1.0-win.zip_
 - Ubuntu .tgz archiv: _o-checklist-yaml-ftp-viewer-1.0-linux.tgz_
 - samotný .jar file:  _o-checklist-yaml-ftp-viewer-1.0.jar_
 
 Po rozbalení .zip nebo .tgz archivu najdeš v adresáři _o-checklist-yaml-ftp-viewer-1.0_ spustitelný soubor _run.bat_ (Windows) nebo _run.sh_ (Linux).
-Dvojklikem na tomto souboru bude aplikace spuštěna. Při spouštění na OS Windows budeš varován, že spouštíš neznámý software. 
+Dvojklikem na tomto souboru bude aplikace spuštěna. 
+Při spouštění na OS Windows budeš varován, že spouštíš neznámý software. 
 
 
 #### Chci si zdrojový kód přečíst, sám sestavit a spustit 
-... vyžaduje znalosti jak pracovat s GitHub, Maven, Java 
+... kód je dostupný na [GitHub](https://github.com/JaroslavBeran/o-checklist-yaml-ftp-viewer), ale zbytek vyžaduje znalosti jak pracovat s GitHub, Maven, Java 
 
 
 ### Konfigurační soubor
@@ -56,11 +57,14 @@ Aplikace umožňuje načíst vlastní konfigurační soubor definující:
 - předdefinované řazení dle nakonfigurovaných sloupečků (vzestupně/sestupně)
 - předdefinovaný filtrační řetězec
 
+Dodržuj odsazování v YAML souboru. V případě špatného odsazení nemusí být konfigurace načtena.
 Příklad obsahu konfiguračního souboru:
 ```yaml
 ##
 ## O-Checklist-YAML-FTP-Viewer config file
 ##
+
+## Note: Be careful and respect the line indentation
 
 version: "1"
 appWidth: 1280  # pixels
@@ -145,17 +149,23 @@ Kliknutím na tlačítko FTP Settings <img src="./src/main/resources/jb/ocheckli
 ### Nastavení FTP v Android aplikaci O-Checklist - Upload report:
 <img src="./doc/o-checklist-android-ftp-settings.png" width="250" alt=""/>
 
-- Zvolit mode "Auto" s intervalem 1 min
+- Mode "Auto" s intervalem 1 min
 - Vypnout "Incremental upload"
 - Vyplnit:
   - Port 21
   - ftp server
   - ftp user
   - ftp pass
-  - jméno souboru pro uložení dat na FTP serveru (např. /runners.yaml) 
+  - jméno souboru pro uložení dat na FTP serveru (např. _/runners.yaml_) 
+
+
+### Nastavení FTP serveru
+Nastavení přístupu na tvůj FTP server je čistě na tobě :)
+
 
 #### "Dočasný" FTP účet
 Server [WebZdarma](https://www.webzdarma.cz/) umožňuje zdarma založit účet, který podporuje základní FTP server funkcionalitu dostačující pro přenos YAML souboru z Android aplikace O-Checklist do Java aplikace O-Checklist-YAML-FTP-Viewer.
+
 
 ### Filtrování dat
 <img src="./doc/filtr.png" width="250" alt=""/>
@@ -167,7 +177,8 @@ Tlačítko s vykřičníkem "!" neguje, tzn. že budou zobrazeny pouze takové �
 
 ### Mazání tabulky běžců
 - Tabulka je automaticky smazána při jednorázovém [ručním nahráním jednoho YAML souboru](#Ruční-nahrání-jednoho-YAML-souboru).
-- Klik na tlačítko Připojení k FTP nebo Odpojení od FTP nemaže tabulku automaticky. Automatické mazání není použité z důvodu editací checkboxů, které by v případě automatického mazání byly ztraceny.
+- Kliknutím na tlačítko "Připojení k FTP - Connect" nebo "Odpojení od FTP - Disconnect" není tabulka automaticky smazána. 
+Automatické mazání není použité z důvodu editací checkboxů, které by v případě automatického mazání byly ztraceny.
 
 ### Statistická data
 <img src="./doc/statistics.png" width="250" alt=""/>
@@ -185,17 +196,17 @@ Zobrazuje malou statistiku načtených dat v posledně načteném YAML souboru:
 
 Aplikace umožňuje offline načíst YAML soubor.
 
-Kliknutím na uvedené pole nebo dropnout YAML soubor s daty z O-Checklist andriod aplikace.
-Tento YAML soubor jste ručně stáhli z FTP serveru, nebo Vám ho někdo zaslal. 
+Klikni na uvedené pole a vyber požadovaný soubor nebo dropni YAML soubor s daty z O-Checklist andriod aplikace.
+Tento YAML soubor jsi ručně stáhl z FTP serveru, nebo ti ho někdo zaslal. 
 
 
 ### Vícesloupcové řazení dat v tabulce vzestupně/sestupně
-Dvojklikem na záhlaví sloupce začneme nové řazení a kliknutím na každé další záhlaví sloupce je přidáno řazení podle tohoto sloupce.
+Dvojklikem na záhlaví sloupce začneš nové řazení a kliknutím na každé další záhlaví sloupce je přidáno řazení podle tohoto sloupce.
 
 
 ### Rozdíl mezi počtem YAML záznamů a počtu řádků v tabulce
 Android aplikace O-Checklist umožňuje "resetovat" záznam, tedy dovoluje ručně změnit již existující záznam zpět na výchozí stav.
-Například je možné změnit záznam "DNS" zpět na "neodstartoval" (bílé podbarvení).
+Například je možné změnit záznam "DNS" zpět na "závodník je na seznamu" (bílé podbarvení).
 V takovém případě android aplikace O-Checklist tento záznam z YAML odebere.
 Mezi tím, ale záznam již mohl být přenesen a zobrazen v tabulce.
 V takovém případě záznam o závodníkovi z tabulky nezmizí, bude ale zobrazen přeškrtnutým fontem.
@@ -204,7 +215,7 @@ A v takové situaci bude počet YAML záznamu o 1 menší než počet řádků t
 ### Kopírování
 Aplikace umožňuje dva způsoby kopírování dat z tabulky:
  - vybrané řádky tabulky, nebo
- - vybraná hodnota v dané buňce.
+ - vybraná hodnota v buňce tabulky.
 
 #### Vybrané řádky
 Po selekci (vybrání) řádku(ů) stačí zmáčknout Ctrl+C a vybrané řádky josu zkopírovány do Clipboardu v tab-separated formátu.
@@ -292,11 +303,14 @@ It is possible to specify:
  - predefined filter token.
 
 Copy this section and place it to your own yaml file.
+Be careful and  respect line indentation in YAML file. If the indentation is corrupted than file cannot be read.
 
 ```yaml
 ##
 ## O-Checklist-YAML-FTP-Viewer config file
 ##
+
+## Note: Be careful and respect the line indentation.
 
 version: "1"
 appWidth: 1280  # pixels
@@ -419,8 +433,18 @@ The statistics of read data from YAML file:
 - _Comments_: number of records with the comment,
 - _Late starts_: number of runners who have started late.
 
-## Record copying
-It is possible to copy either the cell value or more selected rows:
+
+### Difference between the number of YAML records and number of table rows
+Android app O-Checklist allows to "reset" competitor's record, so you can change manually competitor's record.
+E.g. you can change the runner's "DNS" back to "the runner is listed only" (white background).
+Android app O-Checklist removes this runner's record from the YAML file at that case.
+Imagine that the YAML file could be already sent among all ends (app-ftp-viewer) and displayed in the table already.
+In this case, the runner's record does not disappear from the table, but is only crossed out only and the number of YAML records differs from number of table rows.
+Once the runner's state is changed the row is changed in the table as well.
+
+
+## Copying records
+It is possible to copy either selected table rows or the cell value:
 
 #### Selected table rows
 It is possible to copy selected rows and put them into Excel.

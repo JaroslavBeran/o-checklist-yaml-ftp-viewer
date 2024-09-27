@@ -2,6 +2,8 @@
 ## O-Checklist YAML FTP Viewer config file
 ##
 
+## Note: Be careful and respect the line indentation.
+
 version: "1"
 appWidth: 1300
 appHeight: 600
