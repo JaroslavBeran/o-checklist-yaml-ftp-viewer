@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum StartStatus {
 
+    NOT_SET_YET("Not set yet"),
     STARTED_OK("Started OK"),
     DNS("DNS"),
     LATE_START("Late start");

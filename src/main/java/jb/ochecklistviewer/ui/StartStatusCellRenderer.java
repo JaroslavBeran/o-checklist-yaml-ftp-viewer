@@ -30,6 +30,7 @@ public class StartStatusCellRenderer extends TableCellRendererBase {
 
         RunnerData runner = getTableModel().getElementAt(row);
         Color colour = switch (runner.getRunner().getStartStatus()) {
+            case NOT_SET_YET -> Color.GRAY.brighter();
             case STARTED_OK -> Color.GREEN.darker();
             case DNS -> Color.RED;
             case LATE_START -> new Color(0xff, 0x92, 0x00);
