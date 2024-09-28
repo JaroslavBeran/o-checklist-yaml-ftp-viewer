@@ -152,13 +152,13 @@ public class Runner {
     Long newCard;
 
     /**
-     * "Started OK", "DNS", or, "Late start" (without quotes).
+     * Initial value is NOT_SET_YET, otherwise "Started OK", "DNS", or, "Late start" (without quotes).
      */
     @EqualsAndHashCode.Exclude
     @JsonSerialize(using = StartStatusSerializer.class)
     @JsonDeserialize(using = StartStatusDeserializer.class)
     @JsonProperty("StartStatus")
-    StartStatus startStatus;
+    StartStatus startStatus = StartStatus.NOT_SET_YET;
 
     /**
      * IOF xml person id (with quotes), or, null (eg, if CSV import).
