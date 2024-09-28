@@ -4,7 +4,7 @@
 
 	<groupId>o-checklist-yaml-ftp-viewer</groupId>
 	<artifactId>o-checklist-yaml-ftp-viewer</artifactId>
-	<version>1.2</version>
+	<version>1.3-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 
@@ -16,7 +16,7 @@
 
 	<scm>
 		<developerConnection>scm:git:https://github.com/JaroslavBeran/o-checklist-yaml-ftp-viewer.git</developerConnection>
-	  <tag>o-checklist-yaml-ftp-viewer-1.2</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<build>
