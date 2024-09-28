@@ -144,7 +144,8 @@ public class UserInterface extends JPanel {
                         runnerDataCurrent.setDisappearedFromYaml(false);
                         int hashCodeCurrentRunnerData = HashCodeBuilder.reflectionHashCode(runnerDataCurrent);
                         int hashCodeNewRunnerData = HashCodeBuilder.reflectionHashCode(newRunner);
-                        if (hashCodeCurrentRunnerData != hashCodeNewRunnerData) {
+                        if (hashCodeCurrentRunnerData != hashCodeNewRunnerData ||
+                            runnerDataCurrent.getRunner().getStartStatus() != newRunner.getRunner().getStartStatus()) {
                             runners.set(runnerDataCurrentIndex, newRunner);
                         }
                     } else {
